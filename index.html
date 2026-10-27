@@ -1,28 +1,53 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
-  <title>Il Gioco delle Coppie</title>
-  <style>
-    body {
-      background: #17131c;
-      color: #f5e9df;
-      font-family: Georgia, serif;
-      text-align: center;
-      padding: 60px 20px;
-    }
-    h1 { color: #d6aa70; }
-    p { font-size: 19px; line-height: 1.6; }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Il Gioco delle Coppie — Il Salotto del BDSM</title>
+<style>
+:root{color-scheme:dark;--bg:#17131c;--panel:#261f2b;--gold:#d6aa70;--text:#f5e9df;--muted:#c6b8c6;--line:#5b495d}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,Arial,sans-serif}main{max-width:790px;margin:40px auto;padding:0 18px 60px}h1,h2{font-family:Georgia,serif;color:var(--gold)}h1{text-align:center;font-size:2.2rem;margin-bottom:0}.intro{text-align:center;color:var(--muted)}fieldset{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:22px;margin:24px 0}legend{color:var(--gold);font:600 1.25rem Georgia,serif;padding:0 8px}label{display:block;font-weight:600;margin:16px 0 6px}input[type=text],select{display:block;width:100%;padding:12px;border-radius:7px;background:#16121b;color:white;border:1px solid #79647d;font:inherit}input[type=checkbox]{margin-right:9px;accent-color:var(--gold)}.check{font-weight:400;display:flex;align-items:flex-start;gap:5px}.hint{font-size:.9rem;color:var(--muted);margin:4px 0 12px}.question{margin:20px 0;padding-bottom:12px;border-bottom:1px solid #4b3b50}.question label{margin-bottom:8px}.scale{display:flex;flex-wrap:wrap;gap:8px}.scale label{display:flex;align-items:center;gap:5px;font-weight:400;margin:0;background:#392f3e;border:1px solid #59475c;border-radius:8px;padding:8px 12px;cursor:pointer}.scale input{accent-color:var(--gold)}button{background:var(--gold);color:#211723;border:0;border-radius:9px;padding:14px 22px;font-weight:700;font-size:1rem;cursor:pointer}button:disabled{opacity:.55;cursor:wait}#status{margin:18px 0;min-height:24px}a{color:#e5bf8e}.small{font-size:.88rem;color:var(--muted)}
+</style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
-<body>
-  <h1>Il Gioco delle Coppie</h1>
-  <h2>Il Salotto del BDSM</h2>
-  <p>Benvenuti nel nostro gioco di compatibilità.</p>
-  <p>Presto potrete partecipare al questionario
-     e scoprire le vostre affinità.</p>
-</body>
-</html>
+<body><main>
+<h1>Il Gioco delle Coppie</h1><p class="intro">Il Salotto del BDSM · Candidature e affinità</p>
+<p>Un incontro di sensibilità, desideri e caratteri. Compili il questionario una sola volta: gli abbinamenti saranno valutati in seguito, sulla base delle compatibilità e delle preferenze reciproche.</p>
+<form id="candidatura">
+<fieldset><legend>1 · La Sua candidatura</legend>
+<label for="pseudonimo">Pseudonimo</label><input id="pseudonimo" name="pseudonimo" type="text" minlength="2" maxlength="100" autocomplete="nickname" required>
+<label for="ruolo">Ruolo</label><select id="ruolo" required><option value="">Selezioni</option><option value="dominante">Dominante</option><option value="sottomesso">Sottomesso/a</option></select>
+<label for="genere">Genere</label><select id="genere" required><option value="">Selezioni</option><option value="donna">Donna</option><option value="uomo">Uomo</option><option value="non binario">Non binario</option><option value="altro / preferisco non specificare">Altro / preferisco non specificare</option></select>
+<label for="eta">Fascia d'età</label><select id="eta" required><option value="">Selezioni</option><option value="18-30">18–30 anni</option><option value="31-50">31–50 anni</option><option value="oltre-50">Oltre 50 anni</option></select><p class="hint">La partecipazione è riservata a persone maggiorenni.</p>
+<label>Generi con cui desidera essere abbinato/a (almeno uno)</label><label class="check"><input type="checkbox" name="generi_preferiti" value="donna">Donne</label><label class="check"><input type="checkbox" name="generi_preferiti" value="uomo">Uomini</label><label class="check"><input type="checkbox" name="generi_preferiti" value="non binario">Persone non binarie</label><label class="check"><input type="checkbox" name="generi_preferiti" value="altro / non specificato">Altri generi / non specificato</label>
+</fieldset>
+<fieldset id="bdsm"><legend>2 · Affinità BDSM (60%)</legend><p class="hint">Indichi quanto ciascuna affermazione La rappresenta: 1 = per niente, 5 = moltissimo.</p></fieldset>
+<fieldset id="carattere"><legend>3 · Affinità caratteriale (40%)</legend><p class="hint">Non esistono risposte giuste o sbagliate.</p></fieldset>
+<fieldset><legend>4 · Consenso e invio</legend><p class="small">I dati saranno usati per gestire la candidatura e valutare possibili abbinamenti nell'ambito del Gioco delle Coppie. Le risposte possono rivelare preferenze intime: prima di aprire il gioco al pubblico, l'organizzatore dovrà rendere disponibile un'informativa privacy completa, con titolare, base giuridica, conservazione, diritti e contatto per la cancellazione.</p>
+<label class="check"><input type="checkbox" id="maggiorenne" required>Confermo di avere almeno 18 anni.</label>
+<label class="check"><input type="checkbox" id="consenso" required>Acconsento esplicitamente al trattamento delle mie risposte, comprese le preferenze intime, per la gestione del gioco e la valutazione degli abbinamenti. So che posso revocare il consenso contattando l'organizzatore.</label>
+<div class="cf-turnstile" data-sitekey="0x4AAAAAAFm4P_APsVtOLVJl" data-theme="dark"></div>
+<p id="status" role="status" aria-live="polite"></p><button id="submit" type="submit">Invia candidatura</button>
+</fieldset></form>
+<p class="small">Il questionario non garantisce un abbinamento. La partecipazione resta volontaria e revocabile.</p>
+</main>
+<script>
+const ENDPOINT='https://zxblysasmrjwkblaardt.supabase.co/functions/v1/invio-candidatura';
+const domandeBDSM=[
+['fiducia','Per me la fiducia reciproca è indispensabile nella dinamica D/s.'],
+['negoziazione','Preferisco definire con chiarezza limiti e aspettative prima di iniziare.'],
+['ritualita','Apprezzo rituali e regole concordate nella relazione.'],
+['intensita','Cerco una dinamica D/s intensa e strutturata.'],
+['flessibilita','Desidero poter rinegoziare facilmente le dinamiche nel tempo.'],
+['comunicazione','Mi piace parlare apertamente di desideri e difficoltà.']
+];
+const domandeCarattere=[
+['socievolezza','Mi considero una persona socievole.'],
+['spontaneita','Preferisco la spontaneità alla pianificazione.'],
+['dialogo','Quando emerge un disaccordo, preferisco discuterne subito.'],
+['autonomia','Ho bisogno di mantenere ampi spazi personali.']
+];
+function renderQuestions(id,questions){const root=document.getElementById(id);for(const [key,question] of questions){const wrap=document.createElement('div');wrap.className='question';const label=document.createElement('label');label.textContent=question;wrap.append(label);const scale=document.createElement('div');scale.className='scale';scale.setAttribute('role','group');scale.setAttribute('aria-label',question);for(let n=1;n<=5;n++){const opt=document.createElement('label');const radio=document.createElement('input');radio.type='radio';radio.name=key;radio.value=String(n);radio.required=true;opt.append(radio,document.createTextNode(String(n)));scale.append(opt)}wrap.append(scale);root.append(wrap)}}
+renderQuestions('bdsm',domandeBDSM);renderQuestions('carattere',domandeCarattere);
+const form=document.getElementById('candidatura');const status=document.getElementById('status');const submit=document.getElementById('submit');
+form.addEventListener('submit',async event=>{event.preventDefault();status.textContent='';const generi=[...form.querySelectorAll('input[name="generi_preferiti"]:checked')].map(el=>el.value);if(!generi.length){status.textContent='Selezioni almeno un genere preferito.';return}const token=window.turnstile?.getResponse();if(!token){status.textContent='Completi la verifica antispam prima di inviare.';return}const risposte={fascia_eta:document.getElementById('eta').value,bdsm:{},carattere:{}};for(const [key] of domandeBDSM)risposte.bdsm[key]=Number(form.elements[key].value);for(const [key] of domandeCarattere)risposte.carattere[key]=Number(form.elements[key].value);const payload={pseudonimo:document.getElementById('pseudonimo').value.trim(),ruolo:document.getElementById('ruolo').value,genere:document.getElementById('genere').value,generi_preferiti:generi,risposte,consenso_dati:document.getElementById('consenso').checked,turnstile_token:token};submit.disabled=true;status.textContent='Invio in corso…';try{const response=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});let data={};try{data=await response.json()}catch{}if(!response.ok)throw new Error(data.message||'Invio non riuscito ('+response.status+').');status.textContent=data.message||'Candidatura registrata correttamente.';form.reset()}catch(error){status.textContent='Errore: '+error.message}finally{submit.disabled=false;window.turnstile?.reset()}});
+</script></body></html>
+ 
