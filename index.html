@@ -15,9 +15,23 @@
 <fieldset><legend>1 · La Sua candidatura</legend>
 <label for="pseudonimo">Pseudonimo</label><input id="pseudonimo" name="pseudonimo" type="text" minlength="2" maxlength="100" autocomplete="nickname" required>
 <label for="ruolo">Ruolo</label><select id="ruolo" required><option value="">Selezioni</option><option value="dominante">Dominante</option><option value="sottomesso">Sottomesso/a</option></select>
-<label for="genere">Genere</label><select id="genere" required><option value="">Selezioni</option><option value="donna">Donna</option><option value="uomo">Uomo</option><option value="non binario">Non binario</option><option value="altro / preferisco non specificare">Altro / preferisco non specificare</option></select>
+ 
+<label for="genere">Genere</label><select id="genere" required><option value="">Selezioni</option><option value="donna">Donna</option><option value="uomo">Uomo</option><option value="non binario">Non binario</option><option value="altro">Altro genere</option><option value="non dichiarato">Preferisco non dichiararlo</option></select>
+
 <label for="eta">Fascia d'età</label><select id="eta" required><option value="">Selezioni</option><option value="18-30">18–30 anni</option><option value="31-50">31–50 anni</option><option value="oltre-50">Oltre 50 anni</option></select><p class="hint">La partecipazione è riservata a persone maggiorenni.</p>
-<label>Generi con cui desidera essere abbinato/a (almeno uno)</label><label class="check"><input type="checkbox" name="generi_preferiti" value="donna">Donne</label><label class="check"><input type="checkbox" name="generi_preferiti" value="uomo">Uomini</label><label class="check"><input type="checkbox" name="generi_preferiti" value="non binario">Persone non binarie</label><label class="check"><input type="checkbox" name="generi_preferiti" value="altro / non specificato">Altri generi / non specificato</label>
+<label>Generi con cui desidera essere abbinato/a (almeno uno)</label>
+<label class="check"><input type="checkbox" name="generi_preferiti" value="donna">Donne</label>
+<label class="check"><input type="checkbox" name="generi_preferiti" value="uomo">Uomini</label>
+<label class="check"><input type="checkbox" name="generi_preferiti" value="non binario">Persone non binarie</label>
+<label class="check"><input type="checkbox" name="generi_preferiti" value="altro">Altri generi</label>
+<label class="check"><input type="checkbox" name="generi_preferiti" value="non dichiarato">Persone che preferiscono non dichiarare il genere</label>
+ 
+
+ 
+ 
+ 
+ 
+
 </fieldset>
 <fieldset id="bdsm"><legend>2 · Affinità BDSM (60%)</legend><p class="hint">Indichi quanto ciascuna affermazione La rappresenta: 1 = per niente, 5 = moltissimo.</p></fieldset>
 <fieldset id="mappa"><legend>3 · La Mappa dei Desideri</legend><p class="hint">Per ogni pratica indichi il Suo interesse e, se desiderata o da esplorare, l’intensità preferita (1 = lieve, 5 = molto intensa). I limiti invalicabili saranno sempre rispettati: non sono punti da sottrarre.</p><div id="pratiche"></div></fieldset>
