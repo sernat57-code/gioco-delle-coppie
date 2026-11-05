@@ -41,6 +41,26 @@ const nomiLimitiPdf={
  pet_play:'Pet play e giochi di ruolo',servizio:'Servizio e devozione'
 };
 
+function sinossiSchedaCoppia(scheda){
+ const elenco=(voci,prefisso)=>new Intl.ListFormat('it',{style:'long',type:'conjunction'})
+  .format(voci.slice(0,3).map(voce=>voce.replace(prefisso,'')));
+ const affini=elenco(scheda.punti_di_forza,/^Affinità su /);
+ const interessi=elenco(scheda.desideri_condivisi,/^Interesse reciproco per /);
+ const intensita=elenco(scheda.intensita_compatibili,/^Intensità vicine per /);
+ const differenza=scheda.differenze_da_discutere[0];
+ const passi=[
+  affini?'Dalle vostre risposte emerge un terreno comune: '+affini+'.':'Le vostre risposte offrono un primo spunto per capire come immaginate la dinamica di coppia.'
+ ];
+ if(interessi)passi.push('Nella Mappa dei Desideri vi ritrovate su '+interessi+'.');
+ if(intensita)passi.push('Anche l’intensità che immaginate è vicina per '+intensita+'.');
+ if(differenza){
+  const [tema]=differenza.split(':');
+  if(tema.startsWith('Aspettative diverse su '))passi.push('Un buon punto da cui partire, quando ne parlerete, è '+tema.replace('Aspettative diverse su ','il tema «')+'»: dalle risposte emergono aspettative diverse.');
+  if(tema.startsWith('Intensità diverse per '))passi.push('Per '+tema.replace('Intensità diverse per ','')+' immaginate intensità diverse. È un aspetto da chiarire insieme.');
+ }
+ return passi.join(' ');
+}
+
 function impaginaSchedaCoppia(coppia,limiti){
  const pagine=[], larghezza=595, altezza=842, margine=48, scala=2;
  let canvas, ctx, y;
@@ -78,6 +98,7 @@ function impaginaSchedaCoppia(coppia,limiti){
    }
   }
   if(riga)righe.push(riga);
+  if(righe.length>1&&righe.length*passo<=180&&y+(righe.length-1)*passo>772)pagina();
   for(const linea of righe){
    if(y>772)pagina();
    ctx.font=font;
@@ -99,6 +120,7 @@ function impaginaSchedaCoppia(coppia,limiti){
  testo('Il punteggio sintetizza le affinità emerse dalle risposte. L’intesa si valuta insieme e ogni pratica richiede il consenso di entrambi.');
  y+=12;
  const scheda=coppia.scheda_b;
+ sezione('Sinossi',[sinossiSchedaCoppia(scheda)],'');
  sezione('Punti di forza',scheda.punti_di_forza,'Nessuna area evidenziata.');
  sezione('Desideri condivisi',scheda.desideri_condivisi,'Nessun interesse reciproco rilevato.');
  sezione('Intensità compatibili',scheda.intensita_compatibili,'Nessuna intensità confrontabile.');
@@ -112,6 +134,8 @@ function impaginaSchedaCoppia(coppia,limiti){
    sezione('Limiti invalicabili di '+nome,chiavi.map(chiave=>nomiLimitiPdf[chiave]),'Nessun limite indicato nella Mappa.');
   }
   testo('Questi elenchi sono condivisi con il consenso reciproco verificato al momento del download. Conservate la scheda in privato.');
+ }else{
+  sezione('Limiti invalicabili',['Elenchi riservati: al momento del download non risultava un’autorizzazione reciproca attiva.'],'');
  }
  return pagine;
 }
