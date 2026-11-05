@@ -36,7 +36,12 @@
 <fieldset id="bdsm"><legend>2 · Affinità BDSM (60%)</legend><p class="hint">Indichi quanto ciascuna affermazione La rappresenta: 1 = per niente, 5 = moltissimo.</p></fieldset>
 <fieldset id="mappa"><legend>3 · La Mappa dei Desideri</legend><p class="hint">Per ogni pratica indichi il Suo interesse e, se desiderata o da esplorare, l’intensità preferita (1 = lieve, 5 = molto intensa). I limiti invalicabili saranno sempre rispettati: non sono punti da sottrarre.</p><div id="pratiche"></div></fieldset>
 <fieldset id="carattere"><legend>4 · Affinità caratteriale (40%)</legend><p class="hint">Non esistono risposte giuste o sbagliate.</p></fieldset>
-<fieldset><legend>5 · Consenso e invio</legend><p class="small">I dati saranno usati per gestire la candidatura e valutare possibili abbinamenti nell'ambito del Gioco delle Coppie. Le risposte possono rivelare preferenze intime: prima di aprire il gioco al pubblico, l'organizzatore dovrà rendere disponibile un'informativa privacy completa, con titolare, base giuridica, conservazione, diritti e contatto per la cancellazione.</p>
+<fieldset><legend>5 · Consenso e invio</legend><details class="small" open><summary><strong>Informativa breve sul trattamento dei dati</strong></summary>
+<p>Il titolare del trattamento è Nathan Lebowski. Per richieste o revoche può scrivere a <a href="mailto:nathan2024@libero.it">nathan2024@libero.it</a>.</p>
+<p>Raccogliamo pseudonimo, fascia d’età, ruolo, genere, preferenze di abbinamento e risposte, comprese quelle che possono rivelare preferenze intime. Trattiamo questi dati con il Suo consenso esplicito (art. 6, par. 1, lett. a e art. 9, par. 2, lett. a del GDPR) per gestire la candidatura, valutare le affinità e comunicarLe in privato l’esito. Il sistema propone gli abbinamenti e l’organizzatore decide se confermarli. La partecipazione è volontaria e richiede il consenso al trattamento delle risposte.</p>
+<p>L’organizzatore accede alle candidature. Se la coppia è confermata, i due partecipanti ricevono la stessa scheda con gli pseudonimi e le affinità comuni. Le risposte individuali restano riservate. Gli elenchi dei limiti si condividono soltanto con la persona abbinata e se entrambi autorizzano con la scelta facoltativa descritta sotto.</p>
+<p>Supabase conserva le candidature e gestisce il calcolo e i consensi. Il database è ospitato nell’UE. GitHub Pages ospita le pagine e registra gli IP per sicurezza. Cloudflare Turnstile usa dati tecnici del browser per il controllo antispam. I fornitori possono trattare dati tecnici o di servizio anche fuori dallo Spazio economico europeo. Per i trasferimenti a cui si applicano, <a href="https://supabase.com/legal/customer-resources/data-processing-addendum" rel="noreferrer">l’accordo Supabase</a> prevede clausole contrattuali standard. Può chiedere al titolare informazioni sulle garanzie applicabili.</p>
+<p>Candidature, schede conservate dall’organizzatore e consensi associati saranno cancellati entro 30 giorni dalla conclusione dell’edizione. Può revocare il consenso in qualsiasi momento, senza pregiudicare il trattamento già effettuato, e chiedere accesso, rettifica, cancellazione, limitazione o portabilità nei casi previsti. Può presentare un reclamo al <a href="https://www.garanteprivacy.it/" rel="noreferrer">Garante per la protezione dei dati personali</a>.</p></details>
 <label class="check"><input type="checkbox" id="maggiorenne" required>Confermo di avere almeno 18 anni.</label>
 <label class="check"><input type="checkbox" id="consenso" required>Acconsento esplicitamente al trattamento delle mie risposte, comprese le preferenze intime, per la gestione del gioco e la valutazione degli abbinamenti. So che posso revocare il consenso contattando l'organizzatore.</label>
 <label class="check"><input type="checkbox" id="condivisione-limiti">Autorizzo la condivisione dell’elenco dei miei limiti invalicabili esclusivamente con la persona della mia prima coppia confermata dall’organizzatore. Posso revocare questa autorizzazione.</label>
@@ -45,7 +50,7 @@
 <p id="status" role="status" aria-live="polite"></p><button id="submit" type="submit">Invia candidatura</button>
 </fieldset></form>
 <p class="small">Il questionario non garantisce un abbinamento. La partecipazione resta volontaria e revocabile.</p>
-</main>
+<footer class="bottom" style="margin:24px 0 0;text-align:center;font-size:.85rem">© 2026 Nathan Lebowski. Tutti i diritti riservati.</footer></main>
 <script>
 const ENDPOINT='https://zxblysasmrjwkblaardt.supabase.co/functions/v1/invio-candidatura';
 const domandeBDSM=[
