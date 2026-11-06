@@ -118,13 +118,13 @@ function impaginaSchedaCoppia(coppia,limiti){
   if(y>705)pagina();
   testo(titolo,'bold 15px sans-serif',24,'#673649');
   for(const {sottotitolo,voci,vuoto,elenco=true} of gruppi){
-   if(y>735)pagina();
+   if(sottotitolo&&y>735)pagina();
    if(sottotitolo)testo(sottotitolo,'bold 12px sans-serif',19);
    const righe=voci.length&&elenco?voci.map(voce=>'• '+voce):voci;
    (righe.length?righe:[vuoto]).forEach((riga,i)=>testo(riga,undefined,undefined,undefined,i>0));
-   y+=8;
+   y+=4;
   }
-  y+=6;
+  y+=4;
  }
  pagina();
  testo('Scheda di coppia','bold 27px serif',36);
