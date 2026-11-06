@@ -136,8 +136,9 @@ function impaginaSchedaCoppia(coppia,limiti){
  ]){
   const percentuale=Number(valore).toLocaleString('it-IT')+'%';
   testo(etichetta+' · '+percentuale,'bold 15px sans-serif',23,'#673649');
+  if(etichetta==='Compatibilità complessiva')testo('Media ponderata · 60% BDSM, 40% carattere');
  }
- testo('Il punteggio sintetizza le affinità emerse dalle risposte. L’intesa si valuta insieme e ogni pratica richiede il consenso di entrambi.');
+ testo('L’intesa si valuta insieme. Ogni pratica richiede il consenso di entrambi.');
  y+=12;
  const scheda=coppia.scheda_b;
  const titoloDifferenze='C’è da discutere';
