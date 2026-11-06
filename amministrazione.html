@@ -41,9 +41,9 @@ const nomiLimitiPdf={
  pet_play:'Pet play e giochi di ruolo',servizio:'Servizio e devozione'
 };
 
-function messaggioIntensita(scheda){
+function messaggioIntensita(scheda,titoloDifferenze='Differenze da discutere'){
  return scheda.differenze_da_discutere.some(voce=>voce.startsWith('Intensità diverse per '))
-  ? 'Le intensità confrontate risultano diverse. Le trovate in «Differenze da discutere».'
+  ? 'Le intensità confrontate risultano diverse. Le trovate in «'+titoloDifferenze+'».'
   : 'Le risposte non permettono di confrontare le intensità.';
 }
 
@@ -86,9 +86,10 @@ function impaginaSchedaCoppia(coppia,limiti){
   ctx.font='10px sans-serif';
   ctx.fillText('Riservata ai due partecipanti',margine,810);
   ctx.fillText(String(pagine.length),larghezza-margine-10,810);
+  ctx.fillText('© 2026 Nathan Lebowski. Tutti i diritti riservati.',margine,824);
   y=83;
  }
- function testo(valore,font='13px sans-serif',passo=19,colore='#28222a'){
+ function testo(valore,font='13px sans-serif',passo=19,colore='#28222a',mantieniParagrafo=true){
   ctx.font=font;
   const righe=[];
   let riga='';
@@ -104,7 +105,7 @@ function impaginaSchedaCoppia(coppia,limiti){
    }
   }
   if(riga)righe.push(riga);
-  if(righe.length>1&&righe.length*passo<=180&&y+(righe.length-1)*passo>772)pagina();
+  if(mantieniParagrafo&&righe.length>1&&righe.length*passo<=180&&y+(righe.length-1)*passo>772)pagina();
   for(const linea of righe){
    if(y>772)pagina();
    ctx.font=font;
@@ -113,36 +114,55 @@ function impaginaSchedaCoppia(coppia,limiti){
    y+=passo;
   }
  }
- function sezione(titolo,voci,vuoto){
-  if(y>735)pagina();
-  testo(titolo,'bold 15px sans-serif',23,'#673649');
-  for(const voce of voci.length?voci:[vuoto])testo(voce);
-  y+=9;
+ function sezione(titolo,gruppi){
+  if(y>705)pagina();
+  testo(titolo,'bold 15px sans-serif',24,'#673649');
+  for(const {sottotitolo,voci,vuoto,elenco=true} of gruppi){
+   if(y>735)pagina();
+   if(sottotitolo)testo(sottotitolo,'bold 12px sans-serif',19);
+   const righe=voci.length&&elenco?voci.map(voce=>'• '+voce):voci;
+   (righe.length?righe:[vuoto]).forEach((riga,i)=>testo(riga,undefined,undefined,undefined,i>0));
+   y+=8;
+  }
+  y+=6;
  }
  pagina();
  testo('Scheda di coppia','bold 27px serif',36);
  testo(coppia.dominante+' e '+coppia.sottomesso,'bold 20px serif',31);
- testo('Compatibilità stimata '+Number(coppia.punteggio).toLocaleString('it-IT')+'%','bold 16px sans-serif',25,'#673649');
+ for(const [etichetta,valore] of [
+  ['Compatibilità complessiva',coppia.punteggio],
+  ['Compatibilità BDSM',coppia.bdsm],
+  ['Compatibilità caratteriale',coppia.carattere]
+ ]){
+  const percentuale=Number(valore).toLocaleString('it-IT')+'%';
+  testo(etichetta+' · '+percentuale,'bold 15px sans-serif',23,'#673649');
+ }
  testo('Il punteggio sintetizza le affinità emerse dalle risposte. L’intesa si valuta insieme e ogni pratica richiede il consenso di entrambi.');
  y+=12;
  const scheda=coppia.scheda_b;
- sezione('Sinossi',[sinossiSchedaCoppia(scheda)],'');
- sezione('Punti di forza',scheda.punti_di_forza,'Nessuna area evidenziata.');
- sezione('Desideri condivisi',scheda.desideri_condivisi,'Nessun interesse reciproco rilevato.');
- sezione('Intensità compatibili',scheda.intensita_compatibili,messaggioIntensita(scheda));
- sezione('Differenze da discutere',scheda.differenze_da_discutere,'Nessuna differenza marcata nelle affinità o nelle intensità.');
+ const titoloDifferenze='C’è da discutere';
+ sezione('La vostra intesa',[{voci:[sinossiSchedaCoppia(scheda)],elenco:false}]);
+ sezione('I punti di forza',[
+  {voci:scheda.punti_di_forza,vuoto:'Nessuna area evidenziata.'},
+  {sottotitolo:'Desideri condivisi',voci:scheda.desideri_condivisi,vuoto:'Nessun interesse reciproco rilevato.'},
+  {sottotitolo:'Intensità compatibili',voci:scheda.intensita_compatibili,vuoto:messaggioIntensita(scheda,titoloDifferenze)}
+ ]);
+ sezione(titoloDifferenze,[
+  {voci:scheda.differenze_da_discutere,vuoto:'Nessuna differenza marcata nelle affinità o nelle intensità.'}
+ ]);
+ const gruppiLimiti=[];
  if(scheda.limiti.richiede_chiarimento_privato){
-  testo('È emersa una differenza tra desideri e limiti. Rispettate i limiti e chiarite in privato quali pratiche entrambi desiderate.');
-  y+=9;
+  gruppiLimiti.push({voci:['È emersa una differenza tra desideri e limiti. Rispettate i limiti e chiarite in privato quali pratiche entrambi desiderate.'],elenco:false});
  }
  if(limiti){
   for(const [nome,chiavi] of [[coppia.dominante,limiti.a],[coppia.sottomesso,limiti.b]]){
-   sezione('Limiti invalicabili di '+nome,chiavi.map(chiave=>nomiLimitiPdf[chiave]),'Nessun limite indicato nella Mappa.');
+   gruppiLimiti.push({sottotitolo:'Limiti di '+nome,voci:chiavi.map(chiave=>nomiLimitiPdf[chiave]),vuoto:'Nessun limite indicato nella Mappa.'});
   }
-  testo('Questi elenchi sono condivisi con il consenso reciproco verificato al momento del download. Conservate la scheda in privato.');
+  gruppiLimiti.push({voci:['Questi elenchi sono condivisi con il consenso reciproco verificato al momento del download. Conservate la scheda in privato.'],elenco:false});
  }else{
-  sezione('Limiti invalicabili',['Elenchi riservati: al momento del download non risultava un’autorizzazione reciproca attiva.'],'');
+  gruppiLimiti.push({voci:['Elenchi riservati: al momento del download non risultava un’autorizzazione reciproca attiva.'],elenco:false});
  }
+ sezione('Limiti hard',gruppiLimiti);
  return pagine;
 }
 
@@ -205,4 +225,3 @@ $('download-pair-pdf').addEventListener('click',async()=>{
 });
 
 </script></body></html>
-
